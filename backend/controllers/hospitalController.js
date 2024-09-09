@@ -72,6 +72,13 @@ export const registerHospital = async (req, res) => {
     });
     await hospital.save();
 
+    await Category.findOneAndUpdate(
+      { categoryName: categories },
+      { $push: { hospitals: hospital._id } },
+      { new: true }
+    );
+
+
 
     res.status(201).json({ message: "Hospital registered successfully!" });
   } catch (error) {

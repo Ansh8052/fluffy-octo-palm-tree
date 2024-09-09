@@ -135,7 +135,13 @@ export const registerDoctor = async (req, res) => {
         { $push: { doctors: doctor } }, // Push doctor ID to hospital's doctors array
         { new: true } // Return updated document
       );
+
     }
+    await Category.findOneAndUpdate(
+      { categoryName: category },
+      { $push: { doctors: doctor._id } },
+      { new: true }
+    ); 
     
 
     res.status(201).json({ message: "Doctor registered successfully!" });

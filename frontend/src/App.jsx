@@ -10,10 +10,15 @@ import DoctorInfo from './pages/DoctorInfoPage';
 import HospitalInfo from './pages/HospitalInfoPage';
 import SearchResults from './pages/SearchResult';
 import LandingPage from './pages/LandingPage';
+import CreateCategoryForm from './components/CreateCategoryForm';
+
 
 const App = () => {
   const [isAdminAuthenticated, setAdminAuthenticated] = useState(false);
-
+  const checkCategoryPageAuthentication = () => {
+    
+    return isAdminAuthenticated; 
+  };
   return (
     <Router>
       <Routes>
@@ -27,6 +32,8 @@ const App = () => {
         <Route path="/doctor/:doctorId" element={<DoctorInfo />} />
         <Route path="/hospitals/:id" element={<HospitalInfo />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route path="/create-category" element={checkCategoryPageAuthentication() ? <CreateCategoryForm /> : <Navigate to="/admin-login" />} />
+
         {/* Redirect to homepage if no matching route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
